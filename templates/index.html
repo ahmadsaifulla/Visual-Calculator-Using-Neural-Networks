@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeuroCalc</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <canvas id="neural-bg" aria-hidden="true"></canvas>
+  <div class="mesh mesh-a" aria-hidden="true"></div>
+  <div class="mesh mesh-b" aria-hidden="true"></div>
+  <div class="mesh mesh-c" aria-hidden="true"></div>
+
+  <main class="shell">
+    <header class="hero reveal" style="--delay: 0.02s;">
+      <div class="brand-wrap">
+        <div class="neural-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none">
+            <circle cx="20" cy="18" r="5"></circle>
+            <circle cx="45" cy="18" r="5"></circle>
+            <circle cx="32" cy="33" r="5"></circle>
+            <circle cx="20" cy="48" r="5"></circle>
+            <circle cx="45" cy="48" r="5"></circle>
+            <line x1="25" y1="20" x2="39" y2="20"></line>
+            <line x1="24" y1="22" x2="29" y2="29"></line>
+            <line x1="40" y1="22" x2="35" y2="29"></line>
+            <line x1="29" y1="37" x2="24" y2="44"></line>
+            <line x1="35" y1="37" x2="40" y2="44"></line>
+            <line x1="25" y1="46" x2="39" y2="46"></line>
+          </svg>
+        </div>
+        <div>
+          <h1>NeuroCalc</h1>
+          <p>AI-Powered Visual Arithmetic</p>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button id="themeToggle" class="ghost-btn" type="button" aria-pressed="true">Dark Mode</button>
+        <button id="soundToggle" class="ghost-btn" type="button" aria-pressed="false">Sound: Off</button>
+      </div>
+    </header>
+
+    <section class="main-grid reveal" style="--delay: 0.08s;">
+      <div class="stations">
+        <article class="station glass-card" data-kind="digit" data-key="d1">
+          <header class="station-head">
+            <span class="station-icon">#</span>
+            <h2>Station 1: Digit</h2>
+          </header>
+
+          <div class="tabs" role="tablist">
+            <button class="tab-btn active" data-mode="draw" type="button">Draw</button>
+            <button class="tab-btn" data-mode="upload" type="button">Upload</button>
+            <span class="tab-indicator"></span>
+          </div>
+
+          <div class="station-stage">
+            <div class="draw-panel active" data-panel="draw">
+              <div class="canvas-shell">
+                <canvas width="280" height="280"></canvas>
+                <div class="brush-cursor" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <div class="upload-panel" data-panel="upload">
+              <label class="dropzone">
+                <input class="file-input" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
+                <span class="dropzone-text">Drop image here or click to upload</span>
+              </label>
+              <div class="upload-preview placeholder">No image selected</div>
+            </div>
+          </div>
+
+          <div class="station-controls">
+            <label class="brush-control">Brush
+              <input class="brush-slider" type="range" min="5" max="30" value="15">
+            </label>
+            <button class="clear-btn" type="button">Clear</button>
+            <button class="preview-btn" type="button">Preview 28×28</button>
+          </div>
+
+          <div class="preview-wrap hidden">
+            <canvas class="preview-28" width="28" height="28"></canvas>
+          </div>
+
+          <footer class="station-footer">
+            <div class="recognized">Recognized: <span class="recognized-value">—</span></div>
+            <div class="confidence-meta">Confidence: <span class="confidence-value">0%</span></div>
+            <div class="confidence-track"><div class="confidence-fill"></div></div>
+          </footer>
+        </article>
+
+        <article class="station glass-card" data-kind="operator" data-key="op">
+          <header class="station-head">
+            <span class="station-icon">⊕</span>
+            <h2>Station 2: Operator</h2>
+          </header>
+
+          <div class="tabs" role="tablist">
+            <button class="tab-btn active" data-mode="draw" type="button">Draw</button>
+            <button class="tab-btn" data-mode="upload" type="button">Upload</button>
+            <span class="tab-indicator"></span>
+          </div>
+
+          <div class="station-stage">
+            <div class="draw-panel active" data-panel="draw">
+              <div class="canvas-shell">
+                <canvas width="280" height="280"></canvas>
+                <div class="brush-cursor" aria-hidden="true"></div>
+              </div>
+              <p class="operator-hint">For division, draw a slash (/).</p>
+            </div>
+
+            <div class="upload-panel" data-panel="upload">
+              <label class="dropzone">
+                <input class="file-input" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
+                <span class="dropzone-text">Drop image here or click to upload</span>
+              </label>
+              <div class="upload-preview placeholder">No image selected</div>
+            </div>
+          </div>
+
+          <div class="station-controls">
+            <label class="brush-control">Brush
+              <input class="brush-slider" type="range" min="5" max="30" value="15">
+            </label>
+            <button class="clear-btn" type="button">Clear</button>
+            <button class="preview-btn" type="button">Preview 28×28</button>
+          </div>
+
+          <div class="preview-wrap hidden">
+            <canvas class="preview-28" width="28" height="28"></canvas>
+          </div>
+
+          <footer class="station-footer">
+            <div class="recognized">Recognized: <span class="recognized-value">—</span></div>
+            <div class="confidence-meta">Confidence: <span class="confidence-value">0%</span></div>
+            <div class="confidence-track"><div class="confidence-fill"></div></div>
+          </footer>
+        </article>
+
+        <article class="station glass-card" data-kind="digit" data-key="d2">
+          <header class="station-head">
+            <span class="station-icon">#</span>
+            <h2>Station 3: Digit</h2>
+          </header>
+
+          <div class="tabs" role="tablist">
+            <button class="tab-btn active" data-mode="draw" type="button">Draw</button>
+            <button class="tab-btn" data-mode="upload" type="button">Upload</button>
+            <span class="tab-indicator"></span>
+          </div>
+
+          <div class="station-stage">
+            <div class="draw-panel active" data-panel="draw">
+              <div class="canvas-shell">
+                <canvas width="280" height="280"></canvas>
+                <div class="brush-cursor" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <div class="upload-panel" data-panel="upload">
+              <label class="dropzone">
+                <input class="file-input" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
+                <span class="dropzone-text">Drop image here or click to upload</span>
+              </label>
+              <div class="upload-preview placeholder">No image selected</div>
+            </div>
+          </div>
+
+          <div class="station-controls">
+            <label class="brush-control">Brush
+              <input class="brush-slider" type="range" min="5" max="30" value="15">
+            </label>
+            <button class="clear-btn" type="button">Clear</button>
+            <button class="preview-btn" type="button">Preview 28×28</button>
+          </div>
+
+          <div class="preview-wrap hidden">
+            <canvas class="preview-28" width="28" height="28"></canvas>
+          </div>
+
+          <footer class="station-footer">
+            <div class="recognized">Recognized: <span class="recognized-value">—</span></div>
+            <div class="confidence-meta">Confidence: <span class="confidence-value">0%</span></div>
+            <div class="confidence-track"><div class="confidence-fill"></div></div>
+          </footer>
+        </article>
+      </div>
+
+      <aside class="history glass-card reveal" style="--delay: 0.14s;">
+        <h3>Session History</h3>
+        <ul id="historyList">
+          <li class="history-empty">No calculations yet.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="process-section reveal" style="--delay: 0.12s;">
+      <button id="predictBtn" class="process-btn" type="button">
+        <span class="process-core">⟳ Process</span>
+        <span class="process-loader" aria-hidden="true"></span>
+      </button>
+    </section>
+
+    <section class="result-stack reveal" style="--delay: 0.18s;">
+      <article id="resultCard" class="result-card glass-card">
+        <div id="statusMessage" class="status-message">Ready.</div>
+        <div id="resultLine" class="result-line">Recognized: —</div>
+        <div class="result-actions">
+          <button id="copyResultBtn" class="ghost-btn" type="button">Copy Result</button>
+          <span id="copyToast" class="copy-toast">Copied!</span>
+        </div>
+      </article>
+
+      <article class="insights glass-card">
+        <button id="toggleConfidenceBtn" class="toggle-insights" type="button">Show Neural Insights</button>
+        <div id="confidencePanel" class="confidence-panel hidden"></div>
+      </article>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

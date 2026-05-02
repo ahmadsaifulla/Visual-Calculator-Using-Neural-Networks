@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Dataset & large files
+source/
+symbols/
+archive.zip
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Pytest
+.pytest_cache/
+
+# Keras models (large binary files — tracked with Git LFS or excluded)
+# Uncomment the lines below if models are too large for GitHub:
+# *.keras
+# *.h5
