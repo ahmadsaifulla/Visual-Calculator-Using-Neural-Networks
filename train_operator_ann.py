@@ -31,7 +31,7 @@ BATCH_SIZE = 32
 EPOCHS = 100
 LEARNING_RATE = 0.001
 OPERATOR_FOLDERS = ["dot", "minus", "plus", "slash"]
-OPERATOR_LABELS = ["·", "-", "+", "÷"]
+OPERATOR_LABELS = ["·", "-", "+", "/"]
 
 
 @dataclass(frozen=True)

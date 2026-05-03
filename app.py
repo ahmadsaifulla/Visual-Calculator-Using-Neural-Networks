@@ -106,9 +106,9 @@ def calculate_result(d1: int, op: str, d2: int) -> dict[str, Any]:
         return {"result": d1 - d2, "equation": equation}
     if op == "·":
         return {"result": d1 * d2, "equation": equation}
-    if op == "÷":
+    if op == "/":
         if d2 == 0:
-            return {"result": "Error: Cannot divide by zero", "equation": f"{d1} ÷ 0"}
+            return {"result": "Error: Cannot divide by zero", "equation": f"{d1} / 0"}
         return {"result": d1 / d2, "equation": equation}
     return {"result": "Could not recognize symbol", "equation": equation}
 
