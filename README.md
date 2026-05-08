@@ -22,7 +22,7 @@ CNN for classification of images.
 
 ## Project Members
 
- - Ahmad Saifullah (23P-0549)
+ - Ahmad SaifUllah (23P-0549)
  - Muhammad Fasihullah (23P-0627)
  - Muhammad Saif (23P-0512)
 
